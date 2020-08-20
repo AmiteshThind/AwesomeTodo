@@ -1,18 +1,11 @@
 <template>
-  <q-layout view="lHh Lpr lFf">
+  <q-layout view="hHh lpR Lpr fFf">
     <q-header elevated>
       <q-toolbar>
-        <q-btn
-          flat
-          dense
-          round
-          icon="menu"
-          aria-label="Menu"
-          @click="leftDrawerOpen = !leftDrawerOpen"
-        />
+      
 
-        <q-toolbar-title>
-          Quasar App
+        <q-toolbar-title class="absolute-center">
+          Awesome Todo
         </q-toolbar-title>
 
       
@@ -21,11 +14,12 @@
 
       <q-footer>
         <q-toolbar>
-        <q-tabs
+        <q-tabs class="absolute-center" 
     
       >
-        <q-route-tab :key ="index" v-for="(tab,index) in essentialLinks" :to="tab.link" :icon="tab.icon" :label="tab.title" />
-       
+     
+        <q-route-tab  :key ="index" v-for="(tab,index) in essentialLinks" :to="tab.link" :icon="tab.icon" :label="tab.title" />
+   
        
       </q-tabs>
         </q-toolbar>
@@ -34,14 +28,16 @@
 
     <q-drawer
       v-model="leftDrawerOpen"
+      :breakpoint="767"
       show-if-above
+      :width="250"
       bordered
-      content-class="bg-grey-1"
+      content-class="bg-primary"
     >
-      <q-list>
+      <q-list dark>
         <q-item-label
           header
-          class="text-grey-8"
+          class="text-grey-3"
         >
           Navigation
         </q-item-label>
@@ -90,3 +86,16 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+@media screen and (min-width: 768px) {
+.q-footer{
+  display: none;
+}
+}
+.q-drawer{
+   .q-router-link--exact-active {
+  color: white !important;
+}
+}
+</style>
