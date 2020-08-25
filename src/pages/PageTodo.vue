@@ -1,65 +1,48 @@
 <template>
-  <q-page class="q-pa-md" >
- <q-list separator bordered>
-      <q-item  
-       :class="{'bg-green-3':task.completed, 'bg-amber-1 ':!task.completed}"
-        v-for="task in tasks"
-        clickable
-        @click="task.completed=!task.completed"
-        :key = "task.id">
-        <q-item-section side top  >
-          <q-checkbox v-model="task.completed" />
-        </q-item-section>
+  <q-page class="q-pa-md">
 
-        <q-item-section>
-          <q-item-label :class="{'text-strikethrough': task.completed}">{{task.name}}</q-item-label>
-        </q-item-section>
-        <q-item-section side >
-      <div class="row">
-        <div class="column justify-center">
-          <q-icon  class="q-mr-sm"  name="event" size="20px" />
-        </div>
-        <div class="column">
-          <q-item-label caption class="row justify-end" >{{task.dueDate}}</q-item-label>
-          <small><q-item-label class="row justify-end" caption >{{task.dueTime}}</q-item-label></small>
-        </div>
-      </div>
-        </q-item-section>
-          
-       
-        
-      </q-item>
- </q-list>
-  
+    <no-tasks v-if="!Object.keys(tasksTodo).length"></no-tasks>
+    <tasks-todo v-else :tasksTodo="tasksTodo" />
+
+    <tasks-completed v-if="Object.keys(tasksCompleted).length" :tasksCompleted="tasksCompleted" />
+
+    <div class="absolute-bottom text-center q-ma-md">
+      <q-btn @click="showAddTask = true" round color="primary" size="24px" icon="add" />
+    </div>
+
+    <q-dialog v-model="showAddTask">
+      <add-task @close="showAddTask=false" />
+    </q-dialog>
   </q-page>
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+import AddTask from "components/Modals/Shared/AddTask";
+import TasksTodo from "components/Modals/TasksTodo";
+import TasksCompleted from "components/Modals/TasksCompleted";
+import NoTasks from "components/Tasks/NoTasks"
+
 export default {
- data:function(){
-   return{
-     tasks:[{
-       id:1,
-       name:"Go to shop",
-       completed:false,
-       dueDate:'2020/09/06',
-       dueTime: '18:40'
-     },
-     {
-       id:2,
-       name:"Get food",
-       completed:false,
-       dueDate:'2020/10/06',
-       dueTime: '12:40'
-     },
-     {
-       id:3,
-       name:"Complete OSAP",
-       completed:false,
-       dueDate:'2020/07/23',
-       dueTime: '15:43'
-     }]
-   }
- }
-}
+  mounted(){
+    this.$root.$on('showAddTask', () =>{
+      this.showAddTask = true; 
+    })
+  },
+  data: function () {
+    return {
+      showAddTask: false,
+    };
+  },
+  computed: {
+    ...mapGetters("tasks", ["tasksTodo", "tasksCompleted"]), // tasks gets mapped to what the getter tasks returns. the getter 'tasks' is assinged the array value that it returns
+  },
+  components: {
+    task: require("components/Tasks/Task.vue").default,
+    addTask: AddTask,
+    tasksTodo: TasksTodo,
+    tasksCompleted: TasksCompleted,
+    noTasks:NoTasks
+  },
+};
 </script>
