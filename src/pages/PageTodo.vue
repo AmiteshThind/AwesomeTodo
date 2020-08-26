@@ -1,14 +1,26 @@
 <template>
   <q-page class="q-pa-md">
+    <div class="q-pa-md absolute full-width full-height column">
 
-    <no-tasks v-if="!Object.keys(tasksTodo).length"></no-tasks>
-    <tasks-todo v-else :tasksTodo="tasksTodo" />
-
-    <tasks-completed v-if="Object.keys(tasksCompleted).length" :tasksCompleted="tasksCompleted" />
-
-    <div class="absolute-bottom text-center q-ma-md">
-      <q-btn @click="showAddTask = true" round color="primary" size="24px" icon="add" />
+    <div class="row q-mb-lg">
+    <search></search>
+    <sort></sort>
     </div>
+      
+     <p v-if="Object.keys(tasksCompleted).length == 0 && Object.keys(tasksTodo).length==0">No Search Results</p>
+ 
+    <q-scroll-area class="q-scroll-area-tasks">
+    <no-tasks v-if="!Object.keys(tasksTodo).length && !search"></no-tasks>
+    <tasks-todo v-if="Object.keys(tasksTodo).length" :tasksTodo="tasksTodo" />
+    <tasks-completed class="q-mb-xl " v-if="Object.keys(tasksCompleted).length" :tasksCompleted="tasksCompleted" />
+    </q-scroll-area>
+ 
+    <div class="absolute-bottom text-center q-ma-md no-pointer-events">
+      <q-btn class="all-pointer-events" @click="showAddTask = true" round color="primary" size="24px" icon="add" />
+    </div>
+
+    </div>
+ 
 
     <q-dialog v-model="showAddTask">
       <add-task @close="showAddTask=false" />
@@ -17,17 +29,22 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapState } from "vuex";
 import AddTask from "components/Modals/Shared/AddTask";
 import TasksTodo from "components/Modals/TasksTodo";
 import TasksCompleted from "components/Modals/TasksCompleted";
 import NoTasks from "components/Tasks/NoTasks"
+import Search from "components/Modals/Tools/Search"
+import Sort from "components/Modals/Tools/Sort"
 
 export default {
   mounted(){
     this.$root.$on('showAddTask', () =>{
       this.showAddTask = true; 
     })
+
+    console.log(this.tasksTodo)
+    console.log(this.tasksCompelted)
   },
   data: function () {
     return {
@@ -35,14 +52,23 @@ export default {
     };
   },
   computed: {
-    ...mapGetters("tasks", ["tasksTodo", "tasksCompleted"]), // tasks gets mapped to what the getter tasks returns. the getter 'tasks' is assinged the array value that it returns
+    ...mapGetters("tasks", ["tasksTodo", "tasksCompleted"]),
+    ...mapState('tasks',['search']) // tasks gets mapped to what the getter tasks returns. the getter 'tasks' is assinged the array value that it returns
   },
   components: {
     task: require("components/Tasks/Task.vue").default,
     addTask: AddTask,
     tasksTodo: TasksTodo,
     tasksCompleted: TasksCompleted,
-    noTasks:NoTasks
+    noTasks:NoTasks,
+    search:Search,
+    sort:Sort
   },
 };
 </script>
+<style scoped>
+.q-scroll-area-tasks{
+  display:flex;
+  flex-grow:1;
+}
+</style>

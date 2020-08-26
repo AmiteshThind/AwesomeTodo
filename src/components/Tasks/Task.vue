@@ -1,7 +1,6 @@
 <template>
-  <q-item
-        
-        
+  <q-item 
+      v-touch-hold:1000.mouse="showEditTaskModal"  
       @click="updateTask({ id: id, updates: { completed: !task.completed } })"
         :class="{'bg-green-3':task.completed, 'bg-amber-1 ':!task.completed}"
        clickable
@@ -11,7 +10,7 @@
         </q-item-section>
 
         <q-item-section>  
-          <q-item-label :class="{'text-strikethrough': task.completed}">{{task.name}}</q-item-label>
+          <q-item-label v-html="$options.filters.searchHighlight(task.name,search)" :class="{'text-strikethrough': task.completed}"></q-item-label>
         </q-item-section>
         <q-item-section side >
       <div class="row">
@@ -19,7 +18,7 @@
           <q-icon v-if="task.dueDate" class="q-mr-sm"  name="event" size="20px" />
         </div>
         <div class="column">
-          <q-item-label caption class="row justify-end" >{{task.dueDate}}</q-item-label>
+          <q-item-label caption class="row justify-end" >{{task.dueDate | niceDate}}</q-item-label>
           <small><q-item-label class="row justify-end" caption >{{task.dueTime}}</q-item-label></small>
         </div>  
       </div>
@@ -44,14 +43,19 @@
 </template>
 
 <script>
-  import { mapActions } from 'vuex'
+  import { mapActions, mapState } from 'vuex'
  import EditTask from 'components/Modals/Shared/EditTask'
+ import {date} from 'quasar'
+
 export default{
     props:['task','id'],
     data(){
       return{
         showEditTask:false
       }
+    },
+    computed:{
+      ...mapState('tasks',['search'])
     },
     methods:{
         ...mapActions('tasks',['updateTask','deleteTask']),
@@ -67,11 +71,29 @@ export default{
         console.log(id)
         this.deleteTask(id)
       })
+     },
+     showEditTaskModal(){
+       this.showEditTask=true
      }
     },
     components:{
       'edit-task':EditTask
-    }
+    },
+    filters: {
+      niceDate(value){
+         return date.formatDate(value,'MMM D')
+      },
+      searchHighlight(value,search){
+ 
+       if(search){
+          let searchRegExp = new RegExp(search,'ig')
+          return value.replace(searchRegExp,(match) =>{  
+              return '<span class="bg-yellow-6">' + match+ '</span>'
+            })
+          }
+            return value
+        }
+      }
 
 }
 

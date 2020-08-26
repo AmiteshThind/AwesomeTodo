@@ -20,7 +20,9 @@ const state = { // where all data goes for tasks /app
        dueDate:'2020/07/23',
        dueTime: '15:43'
      }
-    }
+    },
+    search:'',
+    sort:'name'
 }
 
 const mutations = { // methods that change state directly
@@ -33,6 +35,12 @@ deleteTask(state,id){
 },
 addTask(state,payload){
    Vue.set(state.tasks,payload.id,payload.task)
+},
+setSearch(state,value){
+    state.search = value; 
+},
+setSort(state,value){
+    state.sort = value; 
 }
 }
 
@@ -52,29 +60,74 @@ const actions = { // used to handle events and calls to server (then triggers mu
             task:task
         }
         commit('addTask',payload)
+    },
+    setSearch({commit},value){
+        commit('setSearch',value)
+    },
+    setSort({commit},value){
+        commit('setSort',value)
     }
 }
 
 const getters = { // methods to retreive information from state 
-    tasksTodo: (state)=>{
+    tasksSorted:(state)=>{
+        let tasksSorted = {}
+        let keysOrdered = Object.keys(state.tasks);
+
+        keysOrdered.sort((a,b) =>{
+            let taskAprop = state.tasks[a][state.sort].toLowerCase(),
+            taskBprop = state.tasks[b][state.sort].toLowerCase()
+
+
+            if(taskAprop>taskBprop) return 1
+            else if(taskAprop<taskBprop) return -1
+            else return 0
+        })
+
+        keysOrdered.forEach((key)=>{
+            tasksSorted[key]  = state.tasks[key]
+        })
+
+        return tasksSorted
+    },
+        tasksFiltered:(state,getters)=>{
+        let tasksFiltered = {}
+            let tasksSorted = getters.tasksSorted
+        if(state.search){
+            Object.keys(tasksSorted).forEach(function(key){
+                let task = tasksSorted[key]
+                
+                if(task.name.toLowerCase().includes(state.search.toLowerCase())){
+                    tasksFiltered[key] = task;
+                }
+            })
+            return tasksFiltered
+        }
+            return tasksSorted
+        
+
+    },
+    tasksTodo: (state,getters)=>{
+        let tasksFiltered = getters.tasksFiltered;
         let tasks = {}
-        let keys = Object.keys(state.tasks)
+        let keys = Object.keys(tasksFiltered)
 
         for(let key of keys){
-            if(!state.tasks[key].completed){
-                tasks[key] = state.tasks[key];
+            if(!tasksFiltered[key].completed){
+                tasks[key] = tasksFiltered[key];
             }
         }
          
         return tasks;
     },
-        tasksCompleted: (state)=>{
+        tasksCompleted: (state,getters)=>{
+        let tasksFiltered = getters.tasksFiltered;
         let tasks = {}
-        let keys = Object.keys(state.tasks)
+        let keys = Object.keys(tasksFiltered)
 
         for(let key of keys){
-            if(state.tasks[key].completed){
-                tasks[key] = state.tasks[key];
+            if(tasksFiltered[key].completed){
+                tasks[key] = tasksFiltered[key];
             }
         }
          
