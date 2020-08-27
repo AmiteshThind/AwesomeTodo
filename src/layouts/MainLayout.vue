@@ -8,6 +8,9 @@
           Awesome Todo
         </q-toolbar-title>
 
+      <q-btn v-if="!loggedIn" to="/auth" flat color="bg-white" icon-right="account_circle" label ="Login" class="absolute-right" />
+      <q-btn v-else to="/auth" flat color="bg-white" icon-right="account_circle" label ="Logout" @click="logoutUser" class="absolute-right" />
+
       
       </q-toolbar>
     </q-header>
@@ -58,6 +61,8 @@
 
 <script>
 import EssentialLink from 'components/EssentialLink.vue'
+import {mapState} from 'vuex'
+import {mapActions} from 'vuex'
 
 const linksData = [
   {
@@ -83,6 +88,12 @@ export default {
       leftDrawerOpen: false,
       essentialLinks: linksData
     }
+  },
+  computed:{
+    ...mapState('auth',['loggedIn'])
+  },
+  methods:{
+    ...mapActions('auth',['logoutUser'])
   }
 }
 </script>

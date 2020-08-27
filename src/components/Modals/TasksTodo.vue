@@ -6,7 +6,7 @@
 
 >
 <div >
-  <list-header bgColor="bg-orange-4">Todo</list-header>
+  <list-header v-if="!settings.showTasksInOneList" bgColor="bg-orange-4">Todo</list-header>
    <q-list separator bordered>
    <task
      v-for="(task,key) in tasksTodo"
@@ -19,15 +19,19 @@
 </template>
 
 <script>
-
+import {mapGetters} from 'vuex'
 import Task from 'components/Tasks/Task'
 import ListHeader from 'components/Modals/Shared/ListHeader'
+
 export default {
 
     props:['tasksTodo'],
     components:{
         'task':Task,
         'list-header' :ListHeader
+    },
+    computed:{
+        ...mapGetters('settings',['settings']),
     }
 }
 </script>

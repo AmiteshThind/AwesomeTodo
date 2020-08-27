@@ -19,7 +19,7 @@
         </div>
         <div class="column">
           <q-item-label caption class="row justify-end" >{{task.dueDate | niceDate}}</q-item-label>
-          <small><q-item-label class="row justify-end" caption >{{task.dueTime}}</q-item-label></small>
+          <small><q-item-label class="row justify-end" caption >{{taskDueTime}}</q-item-label></small>
         </div>  
       </div>
         </q-item-section>
@@ -43,7 +43,7 @@
 </template>
 
 <script>
-  import { mapActions, mapState } from 'vuex'
+  import { mapActions, mapState, mapGetters } from 'vuex'
  import EditTask from 'components/Modals/Shared/EditTask'
  import {date} from 'quasar'
 
@@ -55,7 +55,16 @@ export default{
       }
     },
     computed:{
-      ...mapState('tasks',['search'])
+      ...mapGetters('settings',['settings']),
+      ...mapState('tasks',['search']),
+      taskDueTime(){
+        if(this.settings.show24HourTimeFormat){
+             return this.task.dueTime
+        }
+     
+        return date.formatDate(this.task.dueDate+ ' '+ this.task.dueTime,'h:mmA')
+        
+      }
     },
     methods:{
         ...mapActions('tasks',['updateTask','deleteTask']),
