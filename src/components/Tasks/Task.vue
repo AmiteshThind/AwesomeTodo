@@ -72,7 +72,7 @@ export default{
             
       this.$q.dialog({
         title: 'Confirm',
-        message: 'Really delete?',
+        message: 'Are you sure you want to delete this task?',
         cancel: true,
         persistent: true
       }).onOk(() => {

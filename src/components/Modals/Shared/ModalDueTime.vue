@@ -6,7 +6,7 @@
             outlined
             standout="bg-amber-1 "
             label="Due Time"
-            :value="dueTime"
+            :value="time"
             @input="$emit('update:dueTime',$event)"
           >
             <template v-slot:append>
@@ -27,8 +27,17 @@
 </template>
 
 <script>
+import {date} from 'quasar'
+import {mapState} from 'vuex'
 export default {
- props:['dueTime','dueDate']
+
+ props:['dueTime','dueDate'],
+ computed:{
+   
+   time(){
+     return date.formatDate(this.dueDate+ ' '+ this.dueTime,'h:mmA')
+   }
+ }
 }
 </script>
 
