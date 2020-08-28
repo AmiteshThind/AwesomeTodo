@@ -5,7 +5,7 @@
       <template v-if="tasksDownloaded">
 
     <div class="row q-mb-lg">
-    <search class="col-10"></search>
+    <search class="col-9"></search>
     <sort class="col"></sort>
     </div>
       

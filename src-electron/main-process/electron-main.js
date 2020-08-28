@@ -21,8 +21,10 @@ function createWindow () {
    * Initial window options
    */
   mainWindow = new BrowserWindow({
-    width: 1000,
-    height: 600,
+    width: 600,
+    height: 900,
+    minWidth:500,
+    minHeight:500,
     useContentSize: true,
     webPreferences: {
       // Change from /quasar.conf.js > electron > nodeIntegration;
@@ -45,9 +47,9 @@ function createWindow () {
 app.on('ready', createWindow)
 
 app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
+ 
     app.quit()
-  }
+  
 })
 
 app.on('activate', () => {
