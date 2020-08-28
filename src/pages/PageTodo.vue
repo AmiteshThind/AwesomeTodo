@@ -11,7 +11,7 @@
       
      <p v-if="Object.keys(tasksCompleted).length == 0 && Object.keys(tasksTodo).length==0">No Search Results</p>
  
-    <q-scroll-area class="q-scroll-area-tasks ">
+    <q-scroll-area class="q-scroll-area-tasks " style=" height: auto !important;">
     <no-tasks v-if="!Object.keys(tasksTodo).length && !settings.showTasksInOneList"></no-tasks>
     <tasks-todo v-if="Object.keys(tasksTodo).length" :tasksTodo="tasksTodo" />
     <tasks-completed class="q-mb-xl " v-if="Object.keys(tasksCompleted).length" :tasksCompleted="tasksCompleted" />
