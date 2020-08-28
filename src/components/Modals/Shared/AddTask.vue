@@ -1,5 +1,5 @@
 <template>
-  <q-card>
+  <q-card class="my-font">
     <modal-header>Add Task</modal-header>
 
     <q-form @submit.prevent="submitForm">

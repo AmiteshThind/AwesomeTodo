@@ -1,5 +1,5 @@
 <template>
-<form @submit.prevent="submitForm">
+<form @submit.prevent="submitForm" class="my-font">
     <div class="row q-mb-md">
   <q-banner class="bg-grey-4 col">
       <template v-slot:avatar>

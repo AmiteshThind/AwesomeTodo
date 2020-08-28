@@ -1,7 +1,7 @@
 <template>
- 
-<q-select map-options emit-value filled v-model="sortBy"  class="q-ml-sm col" :options="options" label="Sort by" stack-label />
- 
+ <div class="my-font">
+<q-select map-options emit-value filled v-model="sortBy"  class="q-ml-sm col my-font" :options="options"   label="Sort by" stack-label />
+ </div>
 </template>
 
 <script>

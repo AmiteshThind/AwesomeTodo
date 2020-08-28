@@ -1,24 +1,33 @@
 <template>
-  <q-page class="q-pa-md">
+  <q-page class="my-font text-h6"  >
     <div class="q-pa-md absolute full-width full-height column">
 
+      <template v-if="tasksDownloaded">
+
     <div class="row q-mb-lg">
-    <search></search>
-    <sort></sort>
+    <search class="col-10"></search>
+    <sort class="col"></sort>
     </div>
       
      <p v-if="Object.keys(tasksCompleted).length == 0 && Object.keys(tasksTodo).length==0">No Search Results</p>
  
-    <q-scroll-area class="q-scroll-area-tasks">
+    <q-scroll-area class="q-scroll-area-tasks ">
     <no-tasks v-if="!Object.keys(tasksTodo).length && !settings.showTasksInOneList"></no-tasks>
     <tasks-todo v-if="Object.keys(tasksTodo).length" :tasksTodo="tasksTodo" />
     <tasks-completed class="q-mb-xl " v-if="Object.keys(tasksCompleted).length" :tasksCompleted="tasksCompleted" />
     </q-scroll-area>
  
     <div class="absolute-bottom text-center q-ma-md no-pointer-events">
-      <q-btn class="all-pointer-events" @click="showAddTask = true" round color="primary" size="24px" icon="add" />
+      <q-btn   class="all-pointer-events q-ma-lg" @click="showAddTask = true" round color="primary" size="24px" icon="add_task" />
     </div>
 
+
+      </template>
+      <template v-else>
+        <span class="absolute-center"> 
+        <q-spinner-dots size="4em" color="primary" />
+        </span>
+        </template>
     </div>
  
 
@@ -54,7 +63,7 @@ export default {
   computed: {
     ...mapGetters("tasks", ["tasksTodo", "tasksCompleted"]),
     ...mapGetters("settings",['settings']),
-    ...mapState('tasks',['search']) // tasks gets mapped to what the getter tasks returns. the getter 'tasks' is assinged the array value that it returns
+    ...mapState('tasks',['search','tasksDownloaded']) // tasks gets mapped to what the getter tasks returns. the getter 'tasks' is assinged the array value that it returns
   },
   components: {
     task: require("components/Tasks/Task.vue").default,

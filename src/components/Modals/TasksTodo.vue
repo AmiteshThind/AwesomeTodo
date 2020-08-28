@@ -3,10 +3,11 @@
   appear
   enter-active-class="animated zoomIn"
   leave-active-class="animated zoomOut absolute-top"
+     
 
 >
-<div >
-  <list-header v-if="!settings.showTasksInOneList" bgColor="bg-orange-4">Todo</list-header>
+<div  >
+  <list-header v-if="!settings.showTasksInOneList"  bgColor="bgColor"><span class="text-h4">Tasks</span></list-header>
    <q-list separator bordered>
    <task
      v-for="(task,key) in tasksTodo"
@@ -37,5 +38,7 @@ export default {
 </script>
 
 <style>
-
+.bgColor{
+    background-color:#f5ce7a
+}
 </style>

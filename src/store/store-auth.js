@@ -44,7 +44,7 @@ loginUser({},payload){
 logoutUser(){
     firebaseAuth.signOut()
 },
-handleAuthStateChange({commit}){
+handleAuthStateChange({commit,dispatch}){
       Loading.hide()
     firebaseAuth.onAuthStateChanged(user =>{
      Loading.hide()
@@ -53,8 +53,12 @@ handleAuthStateChange({commit}){
              LocalStorage.set('loggedIn',true)
             commit('setLoggedIn',true);
             this.$router.push('/')
+            dispatch('tasks/fbReadData',null,{root:true}) // trigger action in different vuex module 
             
         }else{
+
+            commit('tasks/setTasksDownloaded',false,{root:true})
+            commit('tasks/clearData',null,{root:true})
              LocalStorage.set('loggedIn',false)
            commit('setLoggedIn',false);
            this.$router.replace('/auth')

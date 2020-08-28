@@ -5,7 +5,7 @@
   leave-active-class="animated zoomOut"
 >
 <div :class="{'q-mt-lg':!settings.showTasksInOneList}" >
-   <list-header v-if="!settings.showTasksInOneList" bgColor="bg-green-4" >Completed</list-header>
+   <list-header v-if="!settings.showTasksInOneList" bgColor="bgColor" > <span  class="text-h4">Completed </span></list-header>
     <q-list  separator bordered>
    <task
      v-for="(task,key) in tasksCompleted"
@@ -33,6 +33,8 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+.bgColor{
+    background-color:#91ce89
+}
 </style>

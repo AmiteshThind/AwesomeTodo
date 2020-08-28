@@ -1,8 +1,8 @@
 <template>
-<q-page padding>
+<q-page padding class="my-font text-subtitle1">
     <q-list bordered padding class="q-mb-md">
 
-      <q-item-label header>Settings</q-item-label>
+      <q-item-label header class="text-h6">Settings</q-item-label>
 
       <q-item tag="label" v-ripple>
         <q-item-section>
@@ -25,7 +25,7 @@
     </q-list>
     <q-list bordered padding>
 
-      <q-item-label header>More</q-item-label>
+      <q-item-label header class="text-h6">More</q-item-label>
 
       <q-item to="/settings/help" tag="label" v-ripple>
         <q-item-section>

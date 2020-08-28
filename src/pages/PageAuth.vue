@@ -1,5 +1,5 @@
 <template>
-<q-page padding>
+<q-page padding class="my-font">
      <q-card class="auth-tabs">
         <q-tabs
           v-model="tab"

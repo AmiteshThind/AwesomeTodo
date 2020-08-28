@@ -1,5 +1,5 @@
 <template>
-     <div class="row q-mb-sm">
+     <div class="row q-mb-sm my-font">
           <q-input
             class="col"
             v-if="dueDate"

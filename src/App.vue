@@ -21,4 +21,5 @@ export default {
 .text-strikethrough{
   text-decoration: line-through;
 }
+
 </style>

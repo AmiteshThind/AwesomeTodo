@@ -4,7 +4,7 @@
     tag="a"
     :to="link"
     exact
-    class="text-grey-5"
+    class="text-grey-4"
   >
     <q-item-section
       v-if="icon"

@@ -1,5 +1,5 @@
 <template>
-    <q-card-actions align="right">
+    <q-card-actions class="my-font" align="right">
         <q-btn type="submit" @click="$event('save')" label="Save" color="primary" />
     </q-card-actions>
 </template>

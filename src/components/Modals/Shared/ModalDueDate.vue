@@ -1,5 +1,5 @@
 <template>
-  <div class="row q-mb-sm">
+  <div class="row q-mb-sm my-font">
     <q-input @input="$emit('update:dueDate',$event)" outlined standout="bg-amber-1" :value="dueDate" label="Due Date">
       <template v-slot:append>
         <q-icon v-if="dueDate" @click="$emit('clear')" name="cancel" class="cursor-pointer" />

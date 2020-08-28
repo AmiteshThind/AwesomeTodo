@@ -1,12 +1,12 @@
-<template>
+<template >
   <q-item 
       v-touch-hold:1000.mouse="showEditTaskModal"  
       @click="updateTask({ id: id, updates: { completed: !task.completed } })"
-        :class="{'bg-green-3':task.completed, 'bg-amber-1 ':!task.completed}"
+        :class="{'bg-green-2':task.completed, 'task-todo':!task.completed}"
        clickable
          >
         <q-item-section side top  >
-          <q-checkbox :value="task.completed" class="no-pointer-events" />
+          <q-checkbox color="green-4" size="sm"  :value="task.completed" class="no-pointer-events" />
         </q-item-section>
 
         <q-item-section>  
@@ -15,10 +15,10 @@
         <q-item-section side >
       <div class="row">
         <div class="column justify-center">
-          <q-icon v-if="task.dueDate" class="q-mr-sm"  name="event" size="20px" />
+          <q-icon v-if="task.dueDate" class="q-mr-sm"  name="event" size="25px" />
         </div>
         <div class="column">
-          <q-item-label caption class="row justify-end" >{{task.dueDate | niceDate}}</q-item-label>
+          <q-item-label caption class="row justify-end " >{{task.dueDate | niceDate}}</q-item-label>
           <small><q-item-label class="row justify-end" caption >{{taskDueTime}}</q-item-label></small>
         </div>  
       </div>
@@ -26,7 +26,7 @@
 
         <q-item-section side>
           <div class="row">
-             <q-btn @click.stop="showEditTask = true" flat dense round color="primary" icon="edit" />
+             <q-btn @click.stop="showEditTask = true" flat dense round color="accent" icon="edit" />
             <q-btn @click.stop="promptToDelete(id)" flat dense round color="secondary" icon="delete" />            
             </div>
         </q-item-section>
@@ -111,5 +111,9 @@ export default{
 </script>
 
 <style>
+.task-todo{
+  background-color: #fde9c9;
+}
+ 
 
 </style>
