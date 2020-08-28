@@ -134,7 +134,7 @@ export default {
 }}
 
 .bg-color{
-  background-color: #ffffff;
+  background-color: #e7e7e7;
 }
 
 .platform-ios{
