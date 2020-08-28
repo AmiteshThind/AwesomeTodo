@@ -83,7 +83,7 @@ export default {
   
 }
 
-    .q-page .q-scroll-area-tasks .scroll.relative-position.fit.hide-scrollbar {
+    .q-page .q-scroll-area-tasks  {
         height: auto !important;
     }
 </style>
