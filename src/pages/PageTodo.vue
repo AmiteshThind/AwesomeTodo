@@ -76,9 +76,14 @@ export default {
   },
 };
 </script>
-<style scoped>
+<style scoped lang="scss">
 .q-scroll-area-tasks{
   display:flex;
   flex-grow:1;
+  
 }
+
+    .q-page .q-scroll-area-tasks .scroll.relative-position.fit.hide-scrollbar {
+        height: auto !important;
+    }
 </style>
