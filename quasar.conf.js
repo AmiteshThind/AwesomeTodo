@@ -113,9 +113,9 @@ module.exports = function (/* ctx */) {
       workboxPluginMode: 'GenerateSW', // 'GenerateSW' or 'InjectManifest'
       workboxOptions: {}, // only for GenerateSW
       manifest: {
-        name: `AwesomeTodo`,
-        short_name: `AwesomeTodo`,
-        description: `A Quasar Framework app`,
+        name: `ToDoIt`,
+        short_name: `ToDoIt`,
+        description: `Tool to help you reach your goals`,
         display: 'standalone',
         orientation: 'portrait',
         background_color: '#ffffff',

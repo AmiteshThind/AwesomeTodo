@@ -1,8 +1,8 @@
 {
   "name": "awesome-todo",
   "version": "0.0.1",
-  "description": "A Quasar Framework app",
-  "productName": "AwesomeTodo",
+  "description": "A tool to help you meet your goals",
+  "productName": "ToDoIt",
   "author": "Amitesh Thind <thindamitesh@gmail.com>",
   "private": true,
   "scripts": {
