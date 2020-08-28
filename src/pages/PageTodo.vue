@@ -5,13 +5,13 @@
       <template v-if="tasksDownloaded">
 
     <div class="row q-mb-lg">
-    <search class="col-9"></search>
-    <sort class="col"></sort>
+    <search  ></search>
+    <sort  ></sort>
     </div>
       
      <p v-if="Object.keys(tasksCompleted).length == 0 && Object.keys(tasksTodo).length==0">No Search Results</p>
  
-    <q-scroll-area class="q-scroll-area-tasks " style=" height: auto !important;">
+    <q-scroll-area class="q-scroll-area-tasks " >
     <no-tasks v-if="!Object.keys(tasksTodo).length && !settings.showTasksInOneList"></no-tasks>
     <tasks-todo v-if="Object.keys(tasksTodo).length" :tasksTodo="tasksTodo" />
     <tasks-completed class="q-mb-xl " v-if="Object.keys(tasksCompleted).length" :tasksCompleted="tasksCompleted" />
@@ -78,12 +78,9 @@ export default {
 </script>
 <style scoped lang="scss">
 .q-scroll-area-tasks{
-  display:flex;
-  flex-grow:1;
-  
+  display: flex;
+  flex-grow: 1;
+  flex-basis: 100px;
 }
 
-    .q-page .q-scroll-area-tasks  {
-        height: auto !important;
-    }
 </style>

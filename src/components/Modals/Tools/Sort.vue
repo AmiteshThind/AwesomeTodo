@@ -43,5 +43,7 @@ export default {
 </script>
 
 <style scoped>
- 
+ .q-select{
+     flex: 0 0 100px;
+ }
 </style>
