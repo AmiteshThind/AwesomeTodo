@@ -10,7 +10,7 @@ import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer'
 import { app } from 'electron'
 
 // Install `electron-debug` with `devtron`
-electronDebug({ showDevTools: true })
+electronDebug({ showDevTools: false })
 
 // Install vuejs devtools
 app.whenReady().then(() => {

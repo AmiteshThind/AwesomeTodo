@@ -1,4 +1,4 @@
-import { app, BrowserWindow, nativeTheme } from 'electron'
+import { app, BrowserWindow, nativeTheme, ipcMain } from 'electron'
 
 try {
   if (process.platform === 'win32' && nativeTheme.shouldUseDarkColors === true) {
@@ -46,6 +46,11 @@ function createWindow () {
 
 app.on('ready', createWindow)
 
+//ipc events
+ipcMain.on('quit-app',()=>{
+   app.quit();
+})
+
 app.on('window-all-closed', () => {
  
     app.quit()
@@ -57,3 +62,6 @@ app.on('activate', () => {
     createWindow()
   }
 })
+
+
+ 

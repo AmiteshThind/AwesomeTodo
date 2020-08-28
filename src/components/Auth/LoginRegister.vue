@@ -14,7 +14,7 @@
     </q-banner>
     </div>
     <div class="row q-mb-md">
-        <q-input ref="email" :rules="[ val => isValidEmailAddress(val) || 'Please enter valid email address']" lazy-rules class="col" outlined v-model="formData.email" label="Email" />
+        <q-input  type="email" ref="email" :rules="[ val => isValidEmailAddress(val) || 'Please enter valid email address']" lazy-rules class="col" outlined v-model="formData.email" label="Email" />
     </div>
         <div class="row q-mb-md">
         <q-input ref="password" :rules="[ val => val.length >= 6 || 'Please use minimum 6 characters']" lazy-rules class="col" outlined v-model="formData.password" type="password"  label="Password" />
